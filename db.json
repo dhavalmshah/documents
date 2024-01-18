@@ -2,7 +2,7 @@
   "mainCarousel": [
     {
       "id": 1,
-      "image": "/images/banner/4.png",
+      "image": "https://dhavalmshah.github.io/fake-api/images/banner/4.png",
       "altText": "BEST OF COLLECTION!",
       "header": "BEST OF COLLECTION!",
       "subtitle": "Spring - Summer 2024",
@@ -12,7 +12,7 @@
     },
     {
       "id": 2,
-      "image": "/images/banner/2.png",
+      "image": "https://dhavalmshah.github.io/fake-api/images/banner/2.png",
       "altText": "SUMMER 2024",
       "header": "SUMMER 2024",
       "subtitle": "FLASH SALE",
@@ -22,7 +22,7 @@
     },
     {
       "id": 3,
-      "image": "/images/banner/3.png",
+      "image": "https://dhavalmshah.github.io/fake-api/images/banner/3.png",
       "altText": "SUMMER 2024",
       "header": "SUMMER 2024",
       "subtitle": "2024 New Arrivals",
@@ -32,7 +32,7 @@
     },
     {
       "id": 4,
-      "image": "/images/banner/1.png",
+      "image": "https://dhavalmshah.github.io/fake-api/images/banner/1.png",
       "altText": "BEST OF COLLECTION!",
       "header": "BEST OF COLLECTION!",
       "subtitle": "Spring - Summer 2024",
