@@ -1,0 +1,44 @@
+{
+  "mainCarousel": [
+    {
+      "id": 1,
+      "image": "/images/banner/4.png",
+      "altText": "BEST OF COLLECTION!",
+      "header": "BEST OF COLLECTION!",
+      "subtitle": "Spring - Summer 2024",
+      "buttonLink": "/products",
+      "template": "A",
+      "description": "Experience the pinnacle of fashion with our 'Best of Collection'. Handpicked from our finest designs, these pieces represent the epitome of style and craftsmanship. Perfect for those who appreciate the finer things in life, this collection is a testament to our commitment to quality and sophistication. Don't miss out on owning a piece of fashion history"
+    },
+    {
+      "id": 2,
+      "image": "/images/banner/2.png",
+      "altText": "SUMMER 2024",
+      "header": "SUMMER 2024",
+      "subtitle": "FLASH SALE",
+      "buttonLink": "/products",
+      "template": "C",
+      "description": "Exclusive Sales Up to 50% Off on 2024 Summer Collection. Take advantage of our exclusive offers and promotional codes."
+    },
+    {
+      "id": 3,
+      "image": "/images/banner/3.png",
+      "altText": "SUMMER 2024",
+      "header": "SUMMER 2024",
+      "subtitle": "2024 New Arrivals",
+      "buttonLink": "/products",
+      "template": "B",
+      "description": "Not the one to compromise? Check out our latest arrivals and stay ahead of the fashion curve."
+    },
+    {
+      "id": 4,
+      "image": "/images/banner/1.png",
+      "altText": "BEST OF COLLECTION!",
+      "header": "BEST OF COLLECTION!",
+      "subtitle": "Spring - Summer 2024",
+      "buttonLink": "/products",
+      "template": "A",
+      "description": "Experience the pinnacle of fashion with our 'Best of Collection'. Handpicked from our finest designs, these pieces represent the epitome of style and craftsmanship. Perfect for those who appreciate the finer things in life, this collection is a testament to our commitment to quality and sophistication. Don't miss out on owning a piece of fashion history"
+    }
+  ]
+}
