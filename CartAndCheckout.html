@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="cart--checkout-actions">Cart &amp; Checkout Actions</h1>
+<p>Following is a detailed guide on the specific APIs to be called for various user actions related to the “Add to Cart” feature</p>
+<h2 id="features">Features</h2>
+<ol>
+<li>
+<p><strong>Adding a Product to the Cart</strong>:</p>
+<ul>
+<li><strong>GraphQL Mutation</strong>: The operation will likely involve a mutation that adds a product variant to the active order (which represents the cart). This mutation will require the ID of the product variant and the quantity.</li>
+<li><strong>API</strong>: <code>addItemToOrder</code></li>
+<li><strong>Details</strong>: This mutation adds an item to the order. It requires the <code>productVariantId</code> and <code>quantity</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Displaying Cart Contents</strong>:</p>
+<ul>
+<li><strong>GraphQL Query</strong>: To fetch the contents of the cart, a query to retrieve the active order details is necessary. This query should return information about all items in the cart, including product details, quantities, and pricing.</li>
+<li><strong>API</strong>: <code>activeOrder</code></li>
+<li><strong>Usage</strong>: This query returns the currently active order, including all items, for the session.</li>
+</ul>
+</li>
+<li>
+<p><strong>Adjusting Quantity of a Cart Item</strong>:</p>
+<ul>
+<li><strong>GraphQL Mutation</strong>: This action will require a mutation that updates the quantity of a line item in the active order. The mutation should specify the line item ID and the new quantity.</li>
+<li><strong>API</strong>: <code>adjustOrderLine</code></li>
+<li><strong>Details</strong>: This mutation adjusts the quantity of an order line. It takes <code>orderLineId</code> and the new <code>quantity</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Removing an Item from the Cart</strong>:</p>
+<ul>
+<li><strong>GraphQL Mutation</strong>: To remove an item, a mutation that removes a line item from the active order is used. The mutation would need the line item ID.</li>
+<li><strong>API</strong>: <code>removeOrderLine</code></li>
+<li><strong>Details</strong>: This mutation removes an order line from the order. It needs the <code>orderLineId</code>.</li>
+<li></li>
+</ul>
+</li>
+<li>
+<p><strong>Handling Cart State Persistence</strong>:</p>
+<ul>
+<li><strong>Session Management</strong>: While not directly a GraphQL operation, maintaining the cart state across sessions will involve cookies based storage or localStorage</li>
+</ul>
+</li>
+<li>
+<p><strong>Error Handling in Cart Operations</strong>:</p>
+<ul>
+<li><strong>Error Responses</strong>: Proper handling of errors from GraphQL responses is crucial. This includes parsing error messages and codes from the GraphQL API and displaying appropriate messages to the user.</li>
+</ul>
+</li>
+<li>
+<p><strong>View Cart Contents</strong>:</p>
+<ul>
+<li><strong>API</strong>: <code>activeOrder</code></li>
+<li><strong>Usage</strong>: This query returns the currently active order, including all items, for the session.</li>
+</ul>
+</li>
+<li>
+<p><strong>Display Pricing Information</strong>:</p>
+<ul>
+<li><strong>API</strong>: <code>activeOrder</code></li>
+<li><strong>Usage</strong>: Along with the active order details, this query includes pricing information for each item and the total cost of the order.</li>
+</ul>
+</li>
+<li>
+<p><strong>View Applied Coupons</strong>:</p>
+<ul>
+<li><strong>API</strong>: <code>activeOrder</code></li>
+<li><strong>Usage</strong>: The active order query should also provide details of any applied coupons and the discounts they offer.</li>
+</ul>
+</li>
+<li>
+<p><strong>Update Cart View</strong>:</p>
+<ul>
+<li><strong>API</strong>: <code>activeOrder</code></li>
+<li><strong>Usage</strong>: This query should be re-fetched or subscribed to for real-time updates whenever changes are made to the cart.</li>
+</ul>
+</li>
+<li>
+<p><strong>Persistent Cart View Across Sessions</strong>:</p>
+<ul>
+<li><strong>API</strong>: <code>activeOrder</code></li>
+<li><strong>Usage</strong>: This API will maintain the cart state across user sessions, provided the session management is correctly set up.</li>
+<li></li>
+</ul>
+</li>
+</ol>
+<h2 id="flow">Flow</h2>
+<p>Below is a sample cart interaction</p>
+<pre class=" language-mermaid"><svg id="mermaid-svg-U5JrF4TihmfuaSBe" width="100%" xmlns="http://www.w3.org/2000/svg" height="989" style="max-width: 987px;" viewBox="-50 -10 987 989"><style>#mermaid-svg-U5JrF4TihmfuaSBe{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#000000;}#mermaid-svg-U5JrF4TihmfuaSBe .error-icon{fill:#552222;}#mermaid-svg-U5JrF4TihmfuaSBe .error-text{fill:#552222;stroke:#552222;}#mermaid-svg-U5JrF4TihmfuaSBe .edge-thickness-normal{stroke-width:2px;}#mermaid-svg-U5JrF4TihmfuaSBe .edge-thickness-thick{stroke-width:3.5px;}#mermaid-svg-U5JrF4TihmfuaSBe .edge-pattern-solid{stroke-dasharray:0;}#mermaid-svg-U5JrF4TihmfuaSBe .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-svg-U5JrF4TihmfuaSBe .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-svg-U5JrF4TihmfuaSBe .marker{fill:#666;stroke:#666;}#mermaid-svg-U5JrF4TihmfuaSBe .marker.cross{stroke:#666;}#mermaid-svg-U5JrF4TihmfuaSBe svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-svg-U5JrF4TihmfuaSBe .actor{stroke:hsl(0,0%,83%);fill:#eee;}#mermaid-svg-U5JrF4TihmfuaSBe text.actor > tspan{fill:#333;stroke:none;}#mermaid-svg-U5JrF4TihmfuaSBe .actor-line{stroke:#666;}#mermaid-svg-U5JrF4TihmfuaSBe .messageLine0{stroke-width:1.5;stroke-dasharray:none;stroke:#333;}#mermaid-svg-U5JrF4TihmfuaSBe .messageLine1{stroke-width:1.5;stroke-dasharray:2,2;stroke:#333;}#mermaid-svg-U5JrF4TihmfuaSBe #arrowhead path{fill:#333;stroke:#333;}#mermaid-svg-U5JrF4TihmfuaSBe .sequenceNumber{fill:white;}#mermaid-svg-U5JrF4TihmfuaSBe #sequencenumber{fill:#333;}#mermaid-svg-U5JrF4TihmfuaSBe #crosshead path{fill:#333;stroke:#333;}#mermaid-svg-U5JrF4TihmfuaSBe .messageText{fill:#333;stroke:#333;}#mermaid-svg-U5JrF4TihmfuaSBe .labelBox{stroke:hsl(0,0%,83%);fill:#eee;}#mermaid-svg-U5JrF4TihmfuaSBe .labelText,#mermaid-svg-U5JrF4TihmfuaSBe .labelText > tspan{fill:#333;stroke:none;}#mermaid-svg-U5JrF4TihmfuaSBe .loopText,#mermaid-svg-U5JrF4TihmfuaSBe .loopText > tspan{fill:#333;stroke:none;}#mermaid-svg-U5JrF4TihmfuaSBe .loopLine{stroke-width:2px;stroke-dasharray:2,2;stroke:hsl(0,0%,83%);fill:hsl(0,0%,83%);}#mermaid-svg-U5JrF4TihmfuaSBe .note{stroke:hsl(60,100%,23.3333333333%);fill:#ffa;}#mermaid-svg-U5JrF4TihmfuaSBe .noteText,#mermaid-svg-U5JrF4TihmfuaSBe .noteText > tspan{fill:#333;stroke:none;}#mermaid-svg-U5JrF4TihmfuaSBe .activation0{fill:#f4f4f4;stroke:#666;}#mermaid-svg-U5JrF4TihmfuaSBe .activation1{fill:#f4f4f4;stroke:#666;}#mermaid-svg-U5JrF4TihmfuaSBe .activation2{fill:#f4f4f4;stroke:#666;}#mermaid-svg-U5JrF4TihmfuaSBe:root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#mermaid-svg-U5JrF4TihmfuaSBe sequence{fill:apa;}</style><g></g><g><line id="actor57" x1="75" y1="5" x2="75" y2="978" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="0" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="75" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px; font-weight: 400; font-family: Open-Sans, &quot;sans-serif&quot;;"><tspan x="75" dy="0">User</tspan></text></g><g><line id="actor58" x1="464" y1="5" x2="464" y2="978" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="389" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="464" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px; font-weight: 400; font-family: Open-Sans, &quot;sans-serif&quot;;"><tspan x="464" dy="0">Next.js</tspan></text></g><g><line id="actor59" x1="812" y1="5" x2="812" y2="978" class="actor-line" stroke-width="0.5px" stroke="#999"></line><rect x="737" y="0" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="812" y="32.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px; font-weight: 400; font-family: Open-Sans, &quot;sans-serif&quot;;"><tspan x="812" dy="0">Ecom Backend</tspan></text></g><defs><marker id="arrowhead" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs><defs><marker id="crosshead" markerWidth="15" markerHeight="8" orient="auto" refX="16" refY="4"><path fill="black" stroke="#000000" stroke-width="1px" d="M 9,2 V 6 L16,4 Z" style="stroke-dasharray: 0, 0;"></path><path fill="none" stroke="#000000" stroke-width="1px" d="M 0,1 L 6,7 M 6,1 L 0,7" style="stroke-dasharray: 0, 0;"></path></marker></defs><defs><marker id="filled-head" refX="18" refY="7" markerWidth="20" markerHeight="28" orient="auto"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker id="sequencenumber" refX="15" refY="15" markerWidth="60" markerHeight="40" orient="auto"><circle cx="15" cy="15" r="6"></circle></marker></defs><text x="270" y="80" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Clicks on Add to Cart</text><line x1="75" y1="111" x2="464" y2="111" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="638" y="126" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Sends addItemToOrder mutation</text><line x1="464" y1="157" x2="812" y2="157" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="638" y="172" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Returns updated order</text><line x1="812" y1="203" x2="464" y2="203" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="270" y="218" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Updates cart state and UI</text><line x1="464" y1="249" x2="75" y2="249" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="270" y="264" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Clicks on Checkout</text><line x1="75" y1="295" x2="464" y2="295" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="638" y="310" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Sends transitionOrderToState mutation</text><line x1="464" y1="341" x2="812" y2="341" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="638" y="356" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Returns updated order</text><line x1="812" y1="387" x2="464" y2="387" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="270" y="402" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Redirects to checkout page</text><line x1="464" y1="433" x2="75" y2="433" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="270" y="448" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Enters shipping and billing information</text><line x1="75" y1="479" x2="464" y2="479" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="638" y="494" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Sends updateOrder mutation</text><line x1="464" y1="525" x2="812" y2="525" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="638" y="540" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Returns updated order</text><line x1="812" y1="571" x2="464" y2="571" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="270" y="586" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Updates order details and UI</text><line x1="464" y1="617" x2="75" y2="617" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="270" y="632" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Selects payment method and confirms order</text><line x1="75" y1="663" x2="464" y2="663" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="638" y="678" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Sends createPayment mutation</text><line x1="464" y1="709" x2="812" y2="709" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="638" y="724" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Returns updated order</text><line x1="812" y1="755" x2="464" y2="755" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="638" y="770" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Sends completeOrder mutation</text><line x1="464" y1="801" x2="812" y2="801" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="638" y="816" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Returns updated order</text><line x1="812" y1="847" x2="464" y2="847" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><text x="270" y="862" text-anchor="middle" dominant-baseline="middle" alignment-baseline="middle" class="messageText" dy="1em" style="font-family: &quot;trebuchet ms&quot;, verdana, arial, sans-serif; font-size: 16px; font-weight: 400;">Redirects to confirmation page</text><line x1="464" y1="893" x2="75" y2="893" class="messageLine0" stroke-width="2" stroke="none" marker-end="url(#arrowhead)" style="fill: none;"></line><g><rect x="0" y="913" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="75" y="945.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px; font-weight: 400; font-family: Open-Sans, &quot;sans-serif&quot;;"><tspan x="75" dy="0">User</tspan></text></g><g><rect x="389" y="913" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="464" y="945.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px; font-weight: 400; font-family: Open-Sans, &quot;sans-serif&quot;;"><tspan x="464" dy="0">Next.js</tspan></text></g><g><rect x="737" y="913" fill="#eaeaea" stroke="#666" width="150" height="65" rx="3" ry="3" class="actor"></rect><text x="812" y="945.5" dominant-baseline="central" alignment-baseline="central" class="actor" style="text-anchor: middle; font-size: 14px; font-weight: 400; font-family: Open-Sans, &quot;sans-serif&quot;;"><tspan x="812" dy="0">Ecom Backend</tspan></text></g></svg></pre>
+<h2 id="queries">Queries</h2>
+<p>Here are some possible scenarios and the corresponding GraphQL API calls that need to be made:</p>
+<h3 id="adding-a-product-to-the-cart">Adding a product to the cart:</h3>
+<p>To add a product to the cart, the user needs to click on the “Add to Cart” button on the product page or the catalog page. This will trigger a mutation that will update the cart state in the store and send a request to the Vendure API with the product ID and the quantity. The mutation might look something like this:</p>
+<pre class=" language-graphql"><code class="prism  language-graphql"><span class="token keyword">mutation</span> AddToCart<span class="token punctuation">(</span><span class="token variable">$productId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token variable">$quantity</span><span class="token punctuation">:</span> Int<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  addItemToOrder<span class="token punctuation">(</span><span class="token attr-name">productVariantId</span><span class="token punctuation">:</span> <span class="token variable">$productId</span><span class="token punctuation">,</span> <span class="token attr-name">quantity</span><span class="token punctuation">:</span> <span class="token variable">$quantity</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    id
+    code
+    state
+    total
+    lines <span class="token punctuation">{</span>
+      id
+      productVariant <span class="token punctuation">{</span>
+        id
+        name
+        price
+      <span class="token punctuation">}</span>
+      quantity
+      totalPrice
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="updating-or-removing-an-item-in-the-cart">Updating or removing an item in the cart:</h3>
+<p>To update or remove an item in the cart, the user needs to change the quantity input or click on the “Remove” button on the cart page. This will trigger a mutation that will update the cart state in the store and send a request to the API with the order line ID and the new quantity. The mutation might look something like this:</p>
+<pre class=" language-graphql"><code class="prism  language-graphql"><span class="token keyword">mutation</span> UpdateCart<span class="token punctuation">(</span><span class="token variable">$orderLineId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token variable">$quantity</span><span class="token punctuation">:</span> Int<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  adjustOrderLine<span class="token punctuation">(</span><span class="token attr-name">orderLineId</span><span class="token punctuation">:</span> <span class="token variable">$orderLineId</span><span class="token punctuation">,</span> <span class="token attr-name">quantity</span><span class="token punctuation">:</span> <span class="token variable">$quantity</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    id
+    code
+    state
+    total
+    lines <span class="token punctuation">{</span>
+      id
+      productVariant <span class="token punctuation">{</span>
+        id
+        name
+        price
+      <span class="token punctuation">}</span>
+      quantity
+      totalPrice
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="proceeding-to-checkout">Proceeding to checkout:</h3>
+<p>To proceed to checkout, the user needs to click on the “Checkout” button on the cart page. This will trigger a mutation that will transition the order state from “AddingItems” to “ArrangingPayment” and send a request to the API with the order ID. The mutation might look something like this:</p>
+<pre class=" language-graphql"><code class="prism  language-graphql"><span class="token keyword">mutation</span> Checkout<span class="token punctuation">(</span><span class="token variable">$orderId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  transitionOrderToState<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token variable">$orderId</span><span class="token punctuation">,</span> <span class="token attr-name">state</span><span class="token punctuation">:</span> <span class="token string">"ArrangingPayment"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    id
+    code
+    state
+    total
+    lines <span class="token punctuation">{</span>
+      id
+      productVariant <span class="token punctuation">{</span>
+        id
+        name
+        price
+      <span class="token punctuation">}</span>
+      quantity
+      totalPrice
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="completing-the-order">Completing the order</h3>
+<p>To complete the order, the user needs to enter their shipping and billing information, select a payment method, and confirm the order on the checkout page. This will trigger a series of mutations that will update the order details, create a payment, and transition the order state from “ArrangingPayment” to “PaymentSettled” and send requests to the API with the order ID and the input data. The mutations might look something like this:</p>
+<pre class=" language-graphql"><code class="prism  language-graphql"><span class="token keyword">mutation</span> UpdateOrderDetails<span class="token punctuation">(</span><span class="token variable">$orderId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token variable">$input</span><span class="token punctuation">:</span> UpdateOrderInput<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  updateOrder<span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token variable">$orderId</span><span class="token punctuation">,</span> <span class="token operator">...</span><span class="token variable">$input</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    id
+    code
+    state
+    total
+    lines <span class="token punctuation">{</span>
+      id
+      productVariant <span class="token punctuation">{</span>
+        id
+        name
+        price
+      <span class="token punctuation">}</span>
+      quantity
+      totalPrice
+    <span class="token punctuation">}</span>
+    shippingAddress <span class="token punctuation">{</span>
+      fullName
+      company
+      streetLine1
+      streetLine2
+      city
+      province
+      postalCode
+      country
+      phoneNumber
+    <span class="token punctuation">}</span>
+    billingAddress <span class="token punctuation">{</span>
+      fullName
+      company
+      streetLine1
+      streetLine2
+      city
+      province
+      postalCode
+      country
+      phoneNumber
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">mutation</span> CreatePayment<span class="token punctuation">(</span><span class="token variable">$orderId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token variable">$method</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">,</span> <span class="token variable">$metadata</span><span class="token punctuation">:</span> JSON<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  addPaymentToOrder<span class="token punctuation">(</span><span class="token attr-name">input</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token attr-name">method</span><span class="token punctuation">:</span> <span class="token variable">$method</span><span class="token punctuation">,</span>
+    <span class="token attr-name">metadata</span><span class="token punctuation">:</span> <span class="token variable">$metadata</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    id
+    code
+    state
+    total
+    lines <span class="token punctuation">{</span>
+      id
+      productVariant <span class="token punctuation">{</span>
+        id
+        name
+        price
+      <span class="token punctuation">}</span>
+      quantity
+      totalPrice
+    <span class="token punctuation">}</span>
+    payments <span class="token punctuation">{</span>
+      id
+      method
+      state
+      amount
+      metadata
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">mutation</span> CompleteOrder<span class="token punctuation">(</span><span class="token variable">$orderId</span><span class="token punctuation">:</span> ID<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  transitionOrderToState<span class="token punctuation">(</span><span class="token attr-name">id</span><span class="token punctuation">:</span> <span class="token variable">$orderId</span><span class="token punctuation">,</span> <span class="token attr-name">state</span><span class="token punctuation">:</span> <span class="token string">"PaymentSettled"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    id
+    code
+    state
+    total
+    lines <span class="token punctuation">{</span>
+      id
+      productVariant <span class="token punctuation">{</span>
+        id
+        name
+        price
+      <span class="token punctuation">}</span>
+      quantity
+      totalPrice
+    <span class="token punctuation">}</span>
+    payments <span class="token punctuation">{</span>
+      id
+      method
+      state
+      amount
+      metadata
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="peristent-cart-view-across-sessions">Peristent Cart View Across Sessions</h3>
+<p>To maintain the cart state across user sessions, the query for the active order should use the session token that is stored in the browser’s local storage or cookies. This will allow the user to resume their shopping experience even if they close and reopen the browser. The query might look something like this:</p>
+<pre class=" language-graphql"><code class="prism  language-graphql"><span class="token keyword">query</span> ViewCart<span class="token punctuation">(</span><span class="token variable">$sessionToken</span><span class="token punctuation">:</span> String<span class="token operator">!</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  activeOrder<span class="token punctuation">(</span><span class="token attr-name">sessionToken</span><span class="token punctuation">:</span> <span class="token variable">$sessionToken</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    id
+    code
+    state
+    total
+    lines <span class="token punctuation">{</span>
+      id
+      productVariant <span class="token punctuation">{</span>
+        id
+        name
+        price
+      <span class="token punctuation">}</span>
+      quantity
+      totalPrice
+    <span class="token punctuation">}</span>
+    promotions <span class="token punctuation">{</span>
+      couponCode
+      description
+      adjustmentSource
+      adjustmentAmount
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div>
+</body>
+
+</html>
