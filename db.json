@@ -69,7 +69,7 @@
           "link": "https://www.youtube.com/thedevguys"
         }
       ],
-      "promotion": "<span>Summer sale discount off <span className='text-red-500'>50%!</span> <span className='text-black'>Shop Now</span></span>"
+      "promotion": "<span>Summer sale discount off <span class='text-red-500'>50%!</span> <span class='text-black'>Shop Now</span></span>"
     }
   ]
 }
