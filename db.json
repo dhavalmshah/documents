@@ -41,32 +41,34 @@
       "description": "Experience the pinnacle of fashion with our 'Best of Collection'. Handpicked from our finest designs, these pieces represent the epitome of style and craftsmanship. Perfect for those who appreciate the finer things in life, this collection is a testament to our commitment to quality and sophistication. Don't miss out on owning a piece of fashion history"
     }
   ],
-  "shopData": {
-    "phone": "+91-9988776655",
-    "email": "shop@thedevguys.in",
-    "address": "The Dev Guys, 123, ABC Road, XYZ City, State, Country - 123456",
-    "social": [
-      {
-        "id": 1,
-        "name": "facebook",
-        "link": "https://www.facebook.com/thedevguys"
-      },
-      {
-        "id": 2,
-        "name": "twitter",
-        "link": "https://www.twitter.com/thedevguys"
-      },
-      {
-        "id": 3,
-        "name": "instagram",
-        "link": "https://www.instagram.com/thedevguys"
-      },
-      {
-        "id": 4,
-        "name": "youtube",
-        "link": "https://www.youtube.com/thedevguys"
-      }
-    ],
-    "promotion": "<span>Summer sale discount off <span className='text-red-500'>50%!</span>{' '}<span className='text-black'>Shop Now</span></span>"
-  }
+  "shopData": [
+    {
+      "phone": "+91-9988776655",
+      "email": "shop@thedevguys.in",
+      "address": "The Dev Guys, 123, ABC Road, XYZ City, State, Country - 123456",
+      "social": [
+        {
+          "id": 1,
+          "name": "facebook",
+          "link": "https://www.facebook.com/thedevguys"
+        },
+        {
+          "id": 2,
+          "name": "twitter",
+          "link": "https://www.twitter.com/thedevguys"
+        },
+        {
+          "id": 3,
+          "name": "instagram",
+          "link": "https://www.instagram.com/thedevguys"
+        },
+        {
+          "id": 4,
+          "name": "youtube",
+          "link": "https://www.youtube.com/thedevguys"
+        }
+      ],
+      "promotion": "<span>Summer sale discount off <span className='text-red-500'>50%!</span>{' '}<span className='text-black'>Shop Now</span></span>"
+    }
+  ]
 }
